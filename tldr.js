@@ -2,15 +2,14 @@
 
 const { RtmClient, CLIENT_EVENTS } = require('@slack/client')
 const debug = require('debug')('bot-tl-dr')
-
-const token = 'xoxb-124809146247-p1jW3S1PXuc0GQuMP9IjrdeD'
+require('dotenv').config()
 
 // const channel = {
 //   name: 'tl-dr-test',
 //   id: 'C3N62U56Z'
 // }
 
-const rtm = new RtmClient(token)
+const rtm = new RtmClient(process.env.TOKEN)
 
 // The client will emit an RTM.AUTHENTICATED event on successful connection, with the `rtm.start` payload if you want to cache it
 rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (startData) => {
