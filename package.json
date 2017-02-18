@@ -6,7 +6,8 @@
   "scripts": {
     "flow": "flow",
     "start": "DEBUG=bot-tl-dr nodemon tldr.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "node tldr.js"
   },
   "keywords": [],
   "author": "",
