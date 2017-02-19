@@ -13,8 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^4.0.0",
-    "slackbots": "^1.0.2"
+    "@slack/client": "^3.8.1",
+    "dotenv": "^4.0.0"
   },
   "devDependencies": {
     "flow-bin": "^0.38.0",
