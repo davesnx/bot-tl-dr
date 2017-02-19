@@ -12,18 +12,22 @@ require('dotenv').config()
 const rtm = new RtmClient(process.env.TOKEN)
 
 // The client will emit an RTM.AUTHENTICATED event on successful connection, with the `rtm.start` payload if you want to cache it
-rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (startData) => {
+rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (startData: Object): void => {
   debug(`Logged in as ${startData.self.name} of team ${startData.team.name}, but not yet connected to a channel`)
 })
 
 // you need to wait for the client to fully connect before you can send messages
-rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, () => {
+rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, (): void => {
   debug('RTM IS ON')
 })
 
+type Message = {
+  content: string
+}
+
 // TODO: Implement from API get all the messages until last connection
 // TODO: Implement get last connection
-const getMessages = (channel) => {
+const getMessages = (channel: string): Array<string> => {
   return [
     'Appending a few old messages to analyze...',
     'to channel',
@@ -37,12 +41,12 @@ const getMessages = (channel) => {
 //      - ignoreUser
 //      - verbosity?
 
-const processParameters = (command) => {
-  return ''
+const processParameters = (command: string): Object => {
+  return {}
 }
 
 // TODO: Use a simple implementation of summarize, the fun part!
-const sumarize = (messages, options) => {
+const sumarize = (messages: Array<string>, options: Object): string => {
   return messages.join(`
     $
   `)
@@ -50,11 +54,11 @@ const sumarize = (messages, options) => {
 
 // TODO: Check how tests runners prints the messages and try to use different ones
 // for now, just raw messages are fine.
-const formatMessages = (messages) => {
+const formatMessages = (messages: string): string => {
   return `Formatted -> ${messages}`
 }
 
-rtm.on(CLIENT_EVENTS.RTM.RAW_MESSAGE, (dataMessage) => {
+rtm.on(CLIENT_EVENTS.RTM.RAW_MESSAGE, (dataMessage: string): void => {
   const data = JSON.parse(dataMessage)
 
   if (data.type === 'message') {
