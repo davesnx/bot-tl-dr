@@ -4,6 +4,8 @@ const { RtmClient, CLIENT_EVENTS } = require('@slack/client')
 const debug = require('debug')('bot-tl-dr')
 require('dotenv').config()
 
+const summarize = require('./summarize')
+
 // const channel = {
 //   name: 'tl-dr-test',
 //   id: 'C3N62U56Z'
@@ -45,13 +47,6 @@ const processParameters = (command: string): Object => {
   return {}
 }
 
-// TODO: Use a simple implementation of summarize, the fun part!
-const sumarize = (messages: Array<string>, options: Object): string => {
-  return messages.join(`
-    $
-  `)
-}
-
 // TODO: Check how tests runners prints the messages and try to use different ones
 // for now, just raw messages are fine.
 const formatMessages = (messages: string): string => {
@@ -66,7 +61,7 @@ rtm.on(CLIENT_EVENTS.RTM.RAW_MESSAGE, (dataMessage: string): void => {
     debug('I received a message: ', data.text)
     const options = processParameters(data.text)
     const messages = getMessages(data.channel)
-    const summarizedMessages = sumarize(messages, options)
+    const summarizedMessages = summarize(messages, options)
     const response = formatMessages(summarizedMessages)
     rtm.sendMessage(response, data.channel)
   }
