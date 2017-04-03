@@ -156,7 +156,7 @@ const summarize = (messages, options) => {
     .sort((a, b) => getAuthority(a) < getAuthority(b))
     .filter((message) => getAuthority(message) > options.verbosity)
     .map(reduceRepeateds)
-    .map((message) => message.content)
+    .map((message) => message.id)
 
   return summarized
 }
